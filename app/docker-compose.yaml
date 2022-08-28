@@ -1,0 +1,35 @@
+version: '3'
+services:
+  streamlit-app:
+    image: streamlit-sd
+    build:
+      context: ${DIR}
+      dockerfile: ${DIR}/app/Dockerfile
+      target: runner
+      secrets:
+        - huggingface_token
+    ports:
+      - 8501:8501
+    volumes:
+      - ${DIR}/app/app.py:/opt/app/app.py
+      - ${DIR}/app/views:/opt/app/views
+      - ${DIR}/app/model:/opt/app/model
+      - ${DIR}/pyproject.toml:/opt/app/pyproject.toml
+      - ${DIR}/poetry.lock:/opt/app/poetry.lock
+      - ${HOME}/.huggingface/token:/home/app/.huggingface/token
+    command: "poetry run streamlit run app.py"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment: 
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - CUDA_LAUNCH_BLOCKING=1
+    
+secrets:
+  huggingface_token:
+    file: ${HOME}/.huggingface/token
