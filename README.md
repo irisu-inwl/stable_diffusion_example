@@ -1,8 +1,14 @@
 # stable_diffusion_example
 
+demo app streamlit+stable diffusion
+
 THIS REPO IS EXPERIMENTAL. 
 
-DON'T YOU PUSH DOCKER IMAGE CREATED BY THIS REPO'S IMAGE BECAUSE THIS REPO'S DOCKER IMAGE IS INSECURED.
+## Demo
+
+https://twitter.com/irisuinwl/status/1563795746062643200
+
+https://twitter.com/irisuinwl/status/1563799137102901248
 
 ## Preliminary: your huggingface token setting
 
